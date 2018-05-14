@@ -23,7 +23,7 @@ import br.com.leoassuncao.bakingapp.pojo.Recipe;
 public class RecipeActivity extends AppCompatActivity implements RecipeAdapter.ListItemClickListener {
 
     public static String ALL_RECIPES = "All_Recipes";
-    static String SELECTED_RECIPES = "Selected_Recipes";
+    public static String SELECTED_RECIPES = "Selected_Recipes";
     static String SELECTED_STEPS = "Selected_Steps";
     static String SELECTED_INDEX = "Selected_Index";
 
