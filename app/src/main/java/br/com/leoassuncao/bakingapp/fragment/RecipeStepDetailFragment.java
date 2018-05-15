@@ -141,8 +141,8 @@ public class RecipeStepDetailFragment extends Fragment {
         }
         else {
             player=null;
-            simpleExoPlayerView.setForeground(ContextCompat.getDrawable(getContext(), R.drawable.ic_chevron_left_black_18dp));
-            simpleExoPlayerView.setLayoutParams(new LinearLayout.LayoutParams(300, 300));
+            simpleExoPlayerView.setForeground(ContextCompat.getDrawable(getContext(), R.drawable.ic_video_off_white_48dp));
+            simpleExoPlayerView.setLayoutParams(new LinearLayout.LayoutParams(500, 300));
         }
 
         Button mPrevStep = (Button) rootView.findViewById(R.id.previousStep);
