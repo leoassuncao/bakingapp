@@ -18,7 +18,7 @@ public class UpdateBakingService extends IntentService {
         super("UpdateBakingService");
     }
 
-    public static void startBakingService(Context context, ArrayList<String> fromActivityIngredientsList) {
+    public static void startBakingService(Context context,ArrayList<String> fromActivityIngredientsList) {
         Intent intent = new Intent(context, UpdateBakingService.class);
         intent.putExtra(FROM_ACTIVITY_INGREDIENTS_LIST,fromActivityIngredientsList);
         context.startService(intent);
@@ -33,12 +33,11 @@ public class UpdateBakingService extends IntentService {
         }
     }
 
-
-
     private void handleActionUpdateBakingWidgets(ArrayList<String> fromActivityIngredientsList) {
         Intent intent = new Intent("android.appwidget.action.APPWIDGET_UPDATE2");
         intent.setAction("android.appwidget.action.APPWIDGET_UPDATE2");
         intent.putExtra(FROM_ACTIVITY_INGREDIENTS_LIST,fromActivityIngredientsList);
         sendBroadcast(intent);
     }
+
 }

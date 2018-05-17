@@ -60,14 +60,10 @@ public class RecipeDetailActivity extends AppCompatActivity implements RecipeDet
                 fragmentManager.beginTransaction()
                         .replace(R.id.fragment_container2, fragment2).addToBackStack(STACK_RECIPE_STEP_DETAIL)
                         .commit();
-
             }
-
-
         } else {
             recipeName = savedInstanceState.getString("Title");
         }
-
 
         Toolbar mToolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(mToolbar);
@@ -81,24 +77,21 @@ public class RecipeDetailActivity extends AppCompatActivity implements RecipeDet
                 FragmentManager fm = getSupportFragmentManager();
                 if (findViewById(R.id.fragment_container2) == null) {
                     if (fm.getBackStackEntryCount() > 1) {
-                        //go back to "Recipe Detail" screen
                         fm.popBackStack(STACK_RECIPE_DETAIL, 0);
                     } else if (fm.getBackStackEntryCount() > 0) {
-                        //go back to "Recipe" screen
                         finish();
-
                     }
-
 
                 } else {
 
-                    //go back to "Recipe" screen
                     finish();
 
                 }
 
             }
         });
+
+
     }
 
 

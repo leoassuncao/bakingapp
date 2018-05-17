@@ -75,7 +75,7 @@ public class RecipeDetailFragment extends Fragment {
         recyclerView.setAdapter(mRecipeDetailAdapter);
         mRecipeDetailAdapter.setMasterRecipeData(recipe, getContext());
 
-        //update widget
+
         UpdateBakingService.startBakingService(getContext(), recipeIngredientsForWidgets);
 
         return rootView;

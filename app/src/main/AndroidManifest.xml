@@ -20,9 +20,25 @@
             </intent-filter>
         </activity>
 
-
         <activity android:name=".activities.RecipeDetailActivity">
         </activity>
+
+        <service android:name=".network.UpdateBakingService" />
+
+        <service
+            android:name=".widget.GridWidgetService"
+            android:permission="android.permission.BIND_REMOTEVIEWS"  />
+
+        <receiver android:name=".widget.BakingWidgetProvider" android:icon="@drawable/cookie">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE2" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/baking_widget" />
+        </receiver>
     </application>
 
 </manifest>
