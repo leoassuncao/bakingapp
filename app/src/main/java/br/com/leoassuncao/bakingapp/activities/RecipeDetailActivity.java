@@ -28,6 +28,7 @@ public class RecipeDetailActivity extends AppCompatActivity implements RecipeDet
     public static String SELECTED_INDEX = "Selected_Index";
     public static String STACK_RECIPE_DETAIL = "STACK_RECIPE_DETAIL";
     public static String STACK_RECIPE_STEP_DETAIL = "STACK_RECIPE_STEP_DETAIL";
+    public static String SELECTED_POSITION = "STACK_RECIPE_STEP_DETAIL";
 
 
     private ArrayList<Recipe> recipe;

@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.res.Configuration;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
@@ -16,6 +17,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.exoplayer2.C;
 import com.google.android.exoplayer2.DefaultLoadControl;
 import com.google.android.exoplayer2.ExoPlayerFactory;
 import com.google.android.exoplayer2.LoadControl;
@@ -44,6 +46,7 @@ import br.com.leoassuncao.bakingapp.pojo.Step;
 
 import static br.com.leoassuncao.bakingapp.activities.RecipeActivity.SELECTED_RECIPES;
 import static br.com.leoassuncao.bakingapp.activities.RecipeDetailActivity.SELECTED_INDEX;
+import static br.com.leoassuncao.bakingapp.activities.RecipeDetailActivity.SELECTED_POSITION;
 import static br.com.leoassuncao.bakingapp.activities.RecipeDetailActivity.SELECTED_STEPS;
 
 /**
@@ -59,6 +62,9 @@ public class RecipeStepDetailFragment extends Fragment {
     private Handler mainHandler;
     ArrayList<Recipe> recipe;
     String recipeName;
+    Long position;
+    Uri videoUri;
+
 
     public RecipeStepDetailFragment() {
 
@@ -79,13 +85,12 @@ public class RecipeStepDetailFragment extends Fragment {
         itemClickListener =(RecipeDetailActivity)getActivity();
 
         recipe = new ArrayList<>();
-
+        position = C.TIME_UNSET;
         if(savedInstanceState != null) {
             steps = savedInstanceState.getParcelableArrayList(SELECTED_STEPS);
             selectedIndex = savedInstanceState.getInt(SELECTED_INDEX);
             recipeName = savedInstanceState.getString("Title");
-
-
+            position = savedInstanceState.getLong(SELECTED_POSITION, C.TIME_UNSET);
         }
         else {
             steps =getArguments().getParcelableArrayList(SELECTED_STEPS);
@@ -126,10 +131,11 @@ public class RecipeStepDetailFragment extends Fragment {
         }
 
         String videoURL = steps.get(selectedIndex).getVideoUrl();
+         videoUri = Uri.parse(steps.get(selectedIndex).getVideoUrl());
 
         if (!videoURL.isEmpty()) {
 
-            initializePlayer(Uri.parse(steps.get(selectedIndex).getVideoUrl()));
+            initializePlayer(videoUri);
 
             if (rootView.findViewWithTag("sw600dp-land-recipe_step_detail")!=null) {
                 getActivity().findViewById(R.id.fragment_container2).setLayoutParams(new LinearLayout.LayoutParams(-1,-2));
@@ -189,7 +195,7 @@ public class RecipeStepDetailFragment extends Fragment {
 
             player = ExoPlayerFactory.newSimpleInstance(getContext(), trackSelector, loadControl);
             simpleExoPlayerView.setPlayer(player);
-
+            if (position != C.TIME_UNSET) player.seekTo(position);
             String userAgent = Util.getUserAgent(getContext(), "Baking App");
             MediaSource mediaSource = new ExtractorMediaSource(mediaUri, new DefaultDataSourceFactory(getContext(), userAgent), new DefaultExtractorsFactory(), null, null);
             player.prepare(mediaSource);
@@ -198,52 +204,37 @@ public class RecipeStepDetailFragment extends Fragment {
     }
 
     @Override
-    public void onSaveInstanceState(Bundle currentState) {
+    public void onSaveInstanceState(@Nullable Bundle currentState) {
         super.onSaveInstanceState(currentState);
         currentState.putParcelableArrayList(SELECTED_STEPS,steps);
         currentState.putInt(SELECTED_INDEX,selectedIndex);
         currentState.putString("Title",recipeName);
+        currentState.putLong(SELECTED_POSITION, position);
     }
 
     public boolean isInLandscapeMode( Context context ) {
         return (context.getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE);
     }
 
-    @Override
-    public void onDetach() {
-        super.onDetach();
-        if (player!=null) {
-            player.stop();
-            player.release();
-        }
-    }
 
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        if (player!=null) {
-            player.stop();
-            player.release();
-            player=null;
-        }
-    }
 
-    @Override
-    public void onStop() {
-        super.onStop();
-        if (player!=null) {
-            player.stop();
-            player.release();
-        }
-    }
 
     @Override
     public void onPause() {
         super.onPause();
         if (player!=null) {
+            position = player.getCurrentPosition();
             player.stop();
             player.release();
+            player = null;
         }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (videoUri != null)
+            initializePlayer(videoUri);
     }
 
 }
