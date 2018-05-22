@@ -3,5 +3,5 @@
 
     <string name="last_recipe">You already are in the First step of the recipe</string>
     <string name="first_recipe">You already are in the Last step of the recipe</string>
-    <string name="appwidget_text">Ingredients will appear here</string>
+    <string name="appwidget_text">RECIPE INGREDIENTS WILL APPEAR HERE AFTER LAUNCHING &quot;BAKING APP&quot;</string>
 </resources>

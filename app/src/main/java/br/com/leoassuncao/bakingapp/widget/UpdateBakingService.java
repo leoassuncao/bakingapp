@@ -1,4 +1,4 @@
-package br.com.leoassuncao.bakingapp.network;
+package br.com.leoassuncao.bakingapp.widget;
 
 import android.app.IntentService;
 import android.content.Context;
@@ -33,8 +33,10 @@ public class UpdateBakingService extends IntentService {
         }
     }
 
+
+
     private void handleActionUpdateBakingWidgets(ArrayList<String> fromActivityIngredientsList) {
-        Intent intent = new Intent("android.appwidget.action.APPWIDGET_UPDATE2");
+        Intent intent = new Intent(this, BakingWidgetProvider.class);
         intent.setAction("android.appwidget.action.APPWIDGET_UPDATE2");
         intent.putExtra(FROM_ACTIVITY_INGREDIENTS_LIST,fromActivityIngredientsList);
         sendBroadcast(intent);

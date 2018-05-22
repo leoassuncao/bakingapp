@@ -9,8 +9,10 @@ import java.util.List;
 
 import br.com.leoassuncao.bakingapp.R;
 
-import static br.com.leoassuncao.bakingapp.widget.BakingWidgetProvider.ingredientsList;
 
+import static br.com.leoassuncao.bakingapp.widget.BakingWidgetProvider.REMOTEVIEW_BUNDLE;
+import static br.com.leoassuncao.bakingapp.widget.BakingWidgetProvider.REMOTEVIEW_INGREDIENT_LIST;
+import static br.com.leoassuncao.bakingapp.widget.BakingWidgetProvider.ingredientsList;
 
 /**
  * Created by leonardo.filho on 15/05/2018.
@@ -21,7 +23,7 @@ public class GridWidgetService extends RemoteViewsService {
 
     @Override
     public RemoteViewsFactory onGetViewFactory(Intent intent) {
-        return new GridRemoteViewsFactory(this.getApplicationContext(), intent);
+        return new GridRemoteViewsFactory(this.getApplicationContext(),intent);
     }
 
 
@@ -29,7 +31,7 @@ public class GridWidgetService extends RemoteViewsService {
 
         Context mContext = null;
 
-        public GridRemoteViewsFactory(Context context, Intent intent) {
+        public GridRemoteViewsFactory(Context context,Intent intent) {
             mContext = context;
 
         }
@@ -62,7 +64,7 @@ public class GridWidgetService extends RemoteViewsService {
             views.setTextViewText(R.id.widget_grid_view_item, remoteViewingredientsList.get(position));
 
             Intent fillInIntent = new Intent();
-            fillInIntent.putExtra(BakingWidgetProvider.REMOTEVIEW_BUNDLE, position);
+            //fillInIntent.putExtras(extras);
             views.setOnClickFillInIntent(R.id.widget_grid_view_item, fillInIntent);
 
             return views;
@@ -87,6 +89,8 @@ public class GridWidgetService extends RemoteViewsService {
         public boolean hasStableIds() {
             return true;
         }
+
+
 
 
     }

@@ -24,14 +24,14 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecyclerVi
 
     private ArrayList<Recipe> lRecipes;
     private Context mContext;
-    final private ListItemClickListener lOnClickListener;
+    final private ListItemClickListener mOnClickListener;
 
     public interface ListItemClickListener {
         void onListItemClick(Recipe clickedItemIndex);
     }
 
     public RecipeAdapter(ListItemClickListener listener) {
-        lOnClickListener = listener;
+        mOnClickListener = listener;
     }
 
 
@@ -87,7 +87,7 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecyclerVi
         @Override
         public void onClick(View v) {
             int clickedPosition = getAdapterPosition();
-            lOnClickListener.onListItemClick(lRecipes.get(clickedPosition));
+            mOnClickListener.onListItemClick(lRecipes.get(clickedPosition));
         }
 
     }

@@ -24,8 +24,8 @@ public class RecipeActivity extends AppCompatActivity implements RecipeAdapter.L
 
     public static String ALL_RECIPES = "All_Recipes";
     public static String SELECTED_RECIPES = "Selected_Recipes";
-    static String SELECTED_STEPS = "Selected_Steps";
-    static String SELECTED_INDEX = "Selected_Index";
+    public static String SELECTED_STEPS = "Selected_Steps";
+    public static String SELECTED_INDEX = "Selected_Index";
 
     @Nullable
     private SimpleIdlingResource mIdlingResource;

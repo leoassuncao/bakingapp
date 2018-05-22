@@ -45,9 +45,9 @@ import br.com.leoassuncao.bakingapp.pojo.Recipe;
 import br.com.leoassuncao.bakingapp.pojo.Step;
 
 import static br.com.leoassuncao.bakingapp.activities.RecipeActivity.SELECTED_RECIPES;
-import static br.com.leoassuncao.bakingapp.activities.RecipeDetailActivity.SELECTED_INDEX;
+import static br.com.leoassuncao.bakingapp.activities.RecipeActivity.SELECTED_INDEX;
 import static br.com.leoassuncao.bakingapp.activities.RecipeDetailActivity.SELECTED_POSITION;
-import static br.com.leoassuncao.bakingapp.activities.RecipeDetailActivity.SELECTED_STEPS;
+import static br.com.leoassuncao.bakingapp.activities.RecipeActivity.SELECTED_STEPS;
 
 /**
  * Created by leonardo.filho on 14/05/2018.
@@ -64,6 +64,7 @@ public class RecipeStepDetailFragment extends Fragment {
     String recipeName;
     Long position;
     Uri videoUri;
+    private static final String INSTANCE_STATE_TITLE = "Title";
 
 
     public RecipeStepDetailFragment() {
@@ -89,7 +90,7 @@ public class RecipeStepDetailFragment extends Fragment {
         if(savedInstanceState != null) {
             steps = savedInstanceState.getParcelableArrayList(SELECTED_STEPS);
             selectedIndex = savedInstanceState.getInt(SELECTED_INDEX);
-            recipeName = savedInstanceState.getString("Title");
+            recipeName = savedInstanceState.getString(INSTANCE_STATE_TITLE);
             position = savedInstanceState.getLong(SELECTED_POSITION, C.TIME_UNSET);
         }
         else {
@@ -97,7 +98,7 @@ public class RecipeStepDetailFragment extends Fragment {
             if (steps!=null) {
                 steps =getArguments().getParcelableArrayList(SELECTED_STEPS);
                 selectedIndex=getArguments().getInt(SELECTED_INDEX);
-                recipeName=getArguments().getString("Title");
+                recipeName=getArguments().getString(INSTANCE_STATE_TITLE);
             }
             else {
                 recipe =getArguments().getParcelableArrayList(SELECTED_RECIPES);
@@ -204,7 +205,7 @@ public class RecipeStepDetailFragment extends Fragment {
     }
 
     @Override
-    public void onSaveInstanceState(@Nullable Bundle currentState) {
+    public void onSaveInstanceState( Bundle currentState) {
         super.onSaveInstanceState(currentState);
         currentState.putParcelableArrayList(SELECTED_STEPS,steps);
         currentState.putInt(SELECTED_INDEX,selectedIndex);
